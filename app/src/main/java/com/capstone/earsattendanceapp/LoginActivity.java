@@ -3,14 +3,18 @@ package com.capstone.earsattendanceapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtUsername, txtPassword;
     Button btnLogin;
     ProgressBar progressBar;
+    ImageView earsLogo;
 
     FirebaseDatabase firedb = FirebaseDatabase.getInstance();
     FirebaseAuth fireauth = FirebaseAuth.getInstance();
@@ -43,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.login_password_text);
         btnLogin = (Button) findViewById(R.id.login_button);
         progressBar = (ProgressBar) findViewById(R.id.login_spinner);
+        earsLogo = (ImageView) findViewById(R.id.login_ears_logo);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,13 +81,16 @@ public class LoginActivity extends AppCompatActivity {
                             if (dataSnapshot.exists()) {
                                 String email = "";
                                 String key = "";
+                                String name = "";
                                 
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     email = data.child("email").getValue().toString();
                                     key = data.child("key").getValue().toString();
+                                    name = data.child("fname").getValue().toString().split(" ")[0];
                                 }
 
                                 /*sign in user*/
+                                final String finalName = name;
                                 fireauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -92,10 +101,15 @@ public class LoginActivity extends AppCompatActivity {
                                             firedb.getReference().child("users/" + user.getUid()).child("is_active").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Intent intent = new Intent(LoginActivity.this, ScanActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                                                    intent.putExtra("USER_NAME", finalName);
+
+                                                    Pair[] pairs = new Pair[1];
+                                                    pairs[0] = new Pair<View, String>(earsLogo, "ears_logo");
+
+                                                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+                                                    startActivity(intent, options.toBundle());
+
                                                 }
                                             });
 
@@ -130,5 +144,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(LoginActivity.this, "Press again to do nothing.", Toast.LENGTH_LONG).show();
     }
 }
