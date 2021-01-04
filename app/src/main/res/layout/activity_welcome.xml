@@ -24,12 +24,58 @@
         android:fontFamily="@font/semi_bold"
         android:textColor="@color/darkGrey"
         android:textSize="16dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:textAlignment="center"
         android:transitionName="title_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_ears_logo" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/regular"
+        android:text="You are assigned to"
+        android:textColor="@color/darkGrey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_greeting_text" />
+
+    <TextView
+        android:id="@+id/welcome_branch_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/darkGrey"
+        android:layout_marginHorizontal="40dp"
+        android:text="..."
+        android:transitionName="branch_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/welcome_branch_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/darkGrey"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/regular"
+        android:transitionName="branch_description"
+        android:layout_marginHorizontal="40dp"
+        android:text="..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_branch_name" />
 
 
     <TextView

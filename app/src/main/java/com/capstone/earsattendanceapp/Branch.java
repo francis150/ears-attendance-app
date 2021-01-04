@@ -1,15 +1,25 @@
 package com.capstone.earsattendanceapp;
 
-public class Branch {
+import java.io.Serializable;
 
-    private String name, description, key;
+public class Branch implements Serializable {
+
+    String key, name, description;
 
     public Branch() {
     }
 
-    public Branch(String name, String description, String key) {
+    public Branch(String key, String name, String description) {
+        this.key = key;
         this.name = name;
         this.description = description;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -27,13 +37,5 @@ public class Branch {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 }

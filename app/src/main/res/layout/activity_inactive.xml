@@ -4,60 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IdleActivity">
+    tools:context=".InactiveActivity">
 
-    <ImageView
-        android:id="@+id/idle_ears_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/inactive_profile_image"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/icon"
-        android:transitionName="ears_logo"
+        android:src="@color/lightGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/idle_branch_name"
+        android:id="@+id/inactive_employee_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:text="..."
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="40dp"
         android:textAlignment="center"
         android:textColor="@color/darkGrey"
-        android:textSize="16dp"
-        android:fontFamily="@font/bold"
-        android:transitionName="branch_name"
+        android:textSize="24sp"
+        android:fontFamily="@font/semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idle_ears_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/inactive_profile_image" />
 
     <TextView
-        android:id="@+id/idle_branch_description"
+        android:id="@+id/inactive_employee_designation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="..."
         android:layout_marginTop="5dp"
         android:layout_marginHorizontal="40dp"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:fontFamily="@font/medium"
+        android:textSize="16sp"
         android:textColor="@color/darkGrey"
-        android:transitionName="branch_description"
+        android:letterSpacing=".25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idle_branch_name" />
+        app:layout_constraintTop_toBottomOf="@+id/inactive_employee_name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap anywhere to scan."
-        android:fontFamily="@font/medium"
-        android:textColor="@color/darkGrey"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="This employee appears to be inactive."
+        android:textSize="14sp"
+        android:textColor="@color/red"
+        android:fontFamily="@font/semi_bold"
+        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idle_branch_description" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/inactive_employee_designation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

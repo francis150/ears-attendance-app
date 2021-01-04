@@ -82,15 +82,18 @@ public class LoginActivity extends AppCompatActivity {
                                 String email = "";
                                 String key = "";
                                 String name = "";
+                                String branchKey = "";
                                 
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     email = data.child("email").getValue().toString();
                                     key = data.child("key").getValue().toString();
                                     name = data.child("fname").getValue().toString().split(" ")[0];
+                                    branchKey = data.child("permissions/attendance_app_branch").getValue().toString();
                                 }
 
                                 /*sign in user*/
                                 final String finalName = name;
+                                final String finalBranchKey = branchKey;
                                 fireauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -103,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                                                     intent.putExtra("USER_NAME", finalName);
+                                                    intent.putExtra("BRANCH_KEY", finalBranchKey);
 
                                                     Pair[] pairs = new Pair[1];
                                                     pairs[0] = new Pair<View, String>(earsLogo, "ears_logo");

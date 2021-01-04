@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanActivity">
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scan_scanner_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:flashButtonVisible="false"
+        app:autoFocusButtonVisible="false"
+        app:frameColor="@android:color/white"
+        app:frameCornersSize="50dp"
+        app:frameCornersRadius="0dp"
+        app:frameAspectRatioWidth="1"
+        app:frameAspectRatioHeight="1"
+        app:frameSize="0.60"
+        app:frameThickness="2dp"
+        app:maskColor="#77000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/scan_ears_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_white_small"
+        android:layout_marginTop="50dp"
+        android:transitionName="ears_logo"
+        app:layout_constraintEnd_toEndOf="@+id/scan_scanner_view"
+        app:layout_constraintStart_toStartOf="@+id/scan_scanner_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scan_branch_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:transitionName="branch_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_ears_logo" />
+
+    <TextView
+        android:id="@+id/scan_branch_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/regular"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:transitionName="branch_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_branch_name" />
+
+    <TextView
+        android:id="@+id/scan_help_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap anywhere to scan."
+        android:fontFamily="@font/regular"
+        android:textSize="16dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

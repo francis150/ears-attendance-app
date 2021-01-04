@@ -46,6 +46,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
                             intent.putExtra("USER_NAME", dataSnapshot.child("fname").getValue().toString().split(" ")[0]);
+                            intent.putExtra("BRANCH_KEY", dataSnapshot.child("permissions/attendance_app_branch").getValue().toString());
                             Pair[] pairs = new Pair[1];
                             pairs[0] = new Pair<View, String>(earsLogo, "ears_logo");
 
