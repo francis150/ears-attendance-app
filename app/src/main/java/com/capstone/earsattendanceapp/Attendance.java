@@ -1,0 +1,104 @@
+package com.capstone.earsattendanceapp;
+
+import java.io.Serializable;
+
+public class Attendance implements Serializable {
+    String key, date, employee_key, employee_fname, employee_lname, employee_img_url, employee_designation, timed_in, timed_out;
+    Shift shift;
+
+    public Attendance() {
+    }
+
+    public Attendance(String key, String date, String employee_key, String employee_fname, String employee_lname, String employee_img_url, String employee_designation, String timed_in, String timed_out, Shift shift) {
+        this.key = key;
+        this.date = date;
+        this.employee_key = employee_key;
+        this.employee_fname = employee_fname;
+        this.employee_lname = employee_lname;
+        this.employee_img_url = employee_img_url;
+        this.employee_designation = employee_designation;
+        this.timed_in = timed_in;
+        this.timed_out = timed_out;
+        this.shift = shift;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getEmployee_key() {
+        return employee_key;
+    }
+
+    public void setEmployee_key(String employee_key) {
+        this.employee_key = employee_key;
+    }
+
+    public String getEmployee_fname() {
+        return employee_fname;
+    }
+
+    public void setEmployee_fname(String employee_fname) {
+        this.employee_fname = employee_fname;
+    }
+
+    public String getEmployee_lname() {
+        return employee_lname;
+    }
+
+    public void setEmployee_lname(String employee_lname) {
+        this.employee_lname = employee_lname;
+    }
+
+    public String getEmployee_img_url() {
+        return employee_img_url;
+    }
+
+    public void setEmployee_img_url(String employee_img_url) {
+        this.employee_img_url = employee_img_url;
+    }
+
+    public String getEmployee_designation() {
+        return employee_designation;
+    }
+
+    public void setEmployee_designation(String employee_designation) {
+        this.employee_designation = employee_designation;
+    }
+
+    public String getTimed_in() {
+        return timed_in;
+    }
+
+    public void setTimed_in(String timed_in) {
+        this.timed_in = timed_in;
+    }
+
+    public String getTimed_out() {
+        return timed_out;
+    }
+
+    public void setTimed_out(String timed_out) {
+        this.timed_out = timed_out;
+    }
+
+    public Shift getShift() {
+        return shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+}

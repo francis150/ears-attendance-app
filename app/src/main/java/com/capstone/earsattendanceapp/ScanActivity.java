@@ -3,7 +3,9 @@ package com.capstone.earsattendanceapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,21 +13,26 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.Result;
 
 public class ScanActivity extends AppCompatActivity {
 
     TextView branchName, branchDescription, helpText;
+    ImageButton switchUserBtn;
 
     CodeScannerView scannerView;
 
     Branch branch;
+
+    FirebaseAuth fireauth = FirebaseAuth.getInstance();
 
     private CodeScanner qrScanner;
     private Vibrator vibrator;
@@ -38,6 +45,7 @@ public class ScanActivity extends AppCompatActivity {
         branchName = (TextView) findViewById(R.id.scan_branch_name);
         branchDescription = (TextView) findViewById(R.id.scan_branch_description);
         helpText = (TextView) findViewById(R.id.scan_help_text);
+        switchUserBtn = (ImageButton) findViewById(R.id.scan_switch_user_btn);
         scannerView = (CodeScannerView) findViewById(R.id.scan_scanner_view);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -46,6 +54,16 @@ public class ScanActivity extends AppCompatActivity {
 
         branchName.setText(branch.getName());
         branchDescription.setText(branch.getDescription());
+
+        fireauth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent intent = new Intent(ScanActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
 
         qrScanner = new CodeScanner(ScanActivity.this, scannerView);
@@ -102,6 +120,27 @@ public class ScanActivity extends AppCompatActivity {
                     helpText.setText("Tap anywhere to stop.");
                 }
 
+            }
+        });
+
+        switchUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(ScanActivity.this)
+                        .setMessage("Are you sure you want to switch user accounts?")
+                        .setPositiveButton("Switch Account", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                fireauth.signOut();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
             }
         });
     }
