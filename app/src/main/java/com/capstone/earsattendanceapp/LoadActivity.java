@@ -81,7 +81,7 @@ public class LoadActivity extends AppCompatActivity {
 
                                         long diffMin = (timeCurrent.getTime() - timeTo.getTime()) / 60000;
 
-                                        if (attendance.getTimed_out() == null && diffMin < 30) {
+                                        if (attendance.getTimed_out() == null && diffMin < 30 && attendance.getEmployee_key().equals(employee.getKey())) {
                                             //ACTIVE
                                             employee.setShiftIn(attendance.getShift());
                                         }
