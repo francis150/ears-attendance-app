@@ -164,7 +164,7 @@ public class ActionsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        firedb.getReference().child("employee_designation").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        firedb.getReference().child("employee_designations").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -226,7 +226,7 @@ public class ActionsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        firedb.getReference().child("employee_designation").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        firedb.getReference().child("employee_designations").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
