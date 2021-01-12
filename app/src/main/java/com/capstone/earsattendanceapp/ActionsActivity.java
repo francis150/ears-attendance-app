@@ -164,38 +164,50 @@ public class ActionsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
-                                        String pushKey = ref.push().getKey();
-
-                                        Attendance attendance = new Attendance(
-                                                pushKey,
-                                                forDbFormat.format(current),
-                                                employee.getKey(),
-                                                employee.getFname(),
-                                                employee.getLname(),
-                                                employee.hasImage() ? employee.getImage_url() : null,
-                                                employee.getDesignation(),
-                                                inputTimeFormat.format(current),
-                                                null,
-                                                selectedShift
-                                        );
-
-                                        ref.child(pushKey).setValue(attendance)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        firedb.getReference().child("employee_designation").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // TIME IN SUCCESSFUL
-                                                employee.setShiftIn(selectedShift);
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
-                                                intent.putExtra("EMPLOYEE", employee);
-                                                intent.putExtra("BRANCH", branch);
-                                                intent.putExtra("ACTION", "Timed-in");
+                                                if (snapshot.exists()) {
+                                                    DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
+                                                    String pushKey = ref.push().getKey();
 
-                                                startActivity(intent);
+                                                    Attendance attendance = new Attendance(
+                                                            pushKey,
+                                                            forDbFormat.format(current),
+                                                            employee.getKey(),
+                                                            employee.getFname(),
+                                                            employee.getLname(),
+                                                            employee.hasImage() ? employee.getImage_url() : null,
+                                                            snapshot.child("name").getValue().toString(),
+                                                            inputTimeFormat.format(current),
+                                                            null,
+                                                            selectedShift
+                                                    );
+
+                                                    ref.child(pushKey).setValue(attendance)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    // TIME IN SUCCESSFUL
+                                                                    employee.setShiftIn(selectedShift);
+
+                                                                    Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
+                                                                    intent.putExtra("EMPLOYEE", employee);
+                                                                    intent.putExtra("BRANCH", branch);
+                                                                    intent.putExtra("ACTION", "Timed-in");
+
+                                                                    startActivity(intent);
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
                                             }
                                         });
-
                                     }
                                 })
                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -214,35 +226,48 @@ public class ActionsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
-                                        String pushKey = ref.push().getKey();
-
-                                        Attendance attendance = new Attendance(
-                                                pushKey,
-                                                forDbFormat.format(current),
-                                                employee.getKey(),
-                                                employee.getFname(),
-                                                employee.getLname(),
-                                                employee.hasImage() ? employee.getImage_url() : null,
-                                                employee.getDesignation(),
-                                                inputTimeFormat.format(current),
-                                                null,
-                                                selectedShift
-                                        );
-
-                                        ref.child(pushKey).setValue(attendance)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        firedb.getReference().child("employee_designation").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // TIME IN SUCCESSFUL
-                                                employee.setShiftIn(selectedShift);
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
-                                                intent.putExtra("EMPLOYEE", employee);
-                                                intent.putExtra("BRANCH", branch);
-                                                intent.putExtra("ACTION", "Timed-in");
+                                                if (snapshot.exists()) {
+                                                    DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
+                                                    String pushKey = ref.push().getKey();
 
-                                                startActivity(intent);
+                                                    Attendance attendance = new Attendance(
+                                                            pushKey,
+                                                            forDbFormat.format(current),
+                                                            employee.getKey(),
+                                                            employee.getFname(),
+                                                            employee.getLname(),
+                                                            employee.hasImage() ? employee.getImage_url() : null,
+                                                            snapshot.child("name").getValue().toString(),
+                                                            inputTimeFormat.format(current),
+                                                            null,
+                                                            selectedShift
+                                                    );
+
+                                                    ref.child(pushKey).setValue(attendance)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    // TIME IN SUCCESSFUL
+                                                                    employee.setShiftIn(selectedShift);
+
+                                                                    Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
+                                                                    intent.putExtra("EMPLOYEE", employee);
+                                                                    intent.putExtra("BRANCH", branch);
+                                                                    intent.putExtra("ACTION", "Timed-in");
+
+                                                                    startActivity(intent);
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
                                             }
                                         });
 
@@ -265,35 +290,48 @@ public class ActionsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
-                                        String pushKey = ref.push().getKey();
-
-                                        Attendance attendance = new Attendance(
-                                                pushKey,
-                                                forDbFormat.format(current),
-                                                employee.getKey(),
-                                                employee.getFname(),
-                                                employee.getLname(),
-                                                employee.hasImage() ? employee.getImage_url() : null,
-                                                employee.getDesignation(),
-                                                inputTimeFormat.format(current),
-                                                null,
-                                                selectedShift
-                                        );
-
-                                        ref.child(pushKey).setValue(attendance)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        firedb.getReference().child("employee_designations").child(employee.getDesignation()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // TIME IN SUCCESSFUL
-                                                employee.setShiftIn(selectedShift);
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
-                                                intent.putExtra("EMPLOYEE", employee);
-                                                intent.putExtra("BRANCH", branch);
-                                                intent.putExtra("ACTION", "Timed-in");
+                                                if (snapshot.exists()) {
+                                                    DatabaseReference ref = firedb.getReference().child("attendance").child(forDbFormat.format(current)).child(branch.getKey());
+                                                    String pushKey = ref.push().getKey();
 
-                                                startActivity(intent);
+                                                    Attendance attendance = new Attendance(
+                                                            pushKey,
+                                                            forDbFormat.format(current),
+                                                            employee.getKey(),
+                                                            employee.getFname(),
+                                                            employee.getLname(),
+                                                            employee.hasImage() ? employee.getImage_url() : null,
+                                                            snapshot.child("name").getValue().toString(),
+                                                            inputTimeFormat.format(current),
+                                                            null,
+                                                            selectedShift
+                                                    );
+
+                                                    ref.child(pushKey).setValue(attendance)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    // TIME IN SUCCESSFUL
+                                                                    employee.setShiftIn(selectedShift);
+
+                                                                    Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
+                                                                    intent.putExtra("EMPLOYEE", employee);
+                                                                    intent.putExtra("BRANCH", branch);
+                                                                    intent.putExtra("ACTION", "Timed-in");
+
+                                                                    startActivity(intent);
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
                                             }
                                         });
 
