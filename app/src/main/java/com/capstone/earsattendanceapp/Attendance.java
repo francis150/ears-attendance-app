@@ -3,17 +3,18 @@ package com.capstone.earsattendanceapp;
 import java.io.Serializable;
 
 public class Attendance implements Serializable {
-    String date, employee_fname, employee_lname, employee_designation, branch_name, branch_description, timed_in, timed_out;
+    String date, employee_fname, employee_lname, employee_designation, employee_img_url, branch_name, branch_description, timed_in, timed_out;
     Shift shift;
 
     public Attendance() {
     }
 
-    public Attendance(String date, String employee_fname, String employee_lname, String employee_designation, String branch_name, String branch_description, String timed_in, String timed_out, Shift shift) {
+    public Attendance(String date, String employee_fname, String employee_lname, String employee_designation, String employee_img_url, String branch_name, String branch_description, String timed_in, String timed_out, Shift shift) {
         this.date = date;
         this.employee_fname = employee_fname;
         this.employee_lname = employee_lname;
         this.employee_designation = employee_designation;
+        this.employee_img_url = employee_img_url;
         this.branch_name = branch_name;
         this.branch_description = branch_description;
         this.timed_in = timed_in;
@@ -51,6 +52,14 @@ public class Attendance implements Serializable {
 
     public void setEmployee_designation(String employee_designation) {
         this.employee_designation = employee_designation;
+    }
+
+    public String getEmployee_img_url() {
+        return employee_img_url;
+    }
+
+    public void setEmployee_img_url(String employee_img_url) {
+        this.employee_img_url = employee_img_url;
     }
 
     public String getBranch_name() {

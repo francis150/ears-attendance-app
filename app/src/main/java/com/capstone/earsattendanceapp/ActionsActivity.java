@@ -168,6 +168,7 @@ public class ActionsActivity extends AppCompatActivity {
                             employee.getFname(),
                             employee.getLname(),
                             designationString,
+                            employee.hasImage() ? employee.getImage_url() : null,
                             branch.getName(),
                             branch.getDescription(),
                             inputTimeFormat.format(current),
