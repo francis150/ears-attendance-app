@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -121,7 +123,19 @@ public class ShiftsActivity extends AppCompatActivity {
                     }
                 });
 
-                holder.shiftTime.setText(model.getFrom() + " - " + model.getTo() + " •");
+                final SimpleDateFormat inputTimeFormat = new SimpleDateFormat("HH:mm");
+                final SimpleDateFormat outputTimeFormat = new SimpleDateFormat("hh:mm a");
+
+                String timeFrom = null, timeTo = null;
+
+                try {
+                    timeFrom = outputTimeFormat.format(inputTimeFormat.parse(model.getFrom()));
+                    timeTo = outputTimeFormat.format(inputTimeFormat.parse(model.getTo()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                holder.shiftTime.setText(timeFrom + " - " + timeTo + " •");
                 holder.shiftBranch.setText(model.getBranch_name());
             }
 

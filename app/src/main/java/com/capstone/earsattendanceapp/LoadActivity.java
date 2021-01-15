@@ -57,41 +57,14 @@ public class LoadActivity extends AppCompatActivity {
                     if (snapshot.child("image_url").exists()) {employee.setImage_url(snapshot.child("image_url").getValue().toString());}
                     if (snapshot.child("deactivated_by").exists()) {employee.setDeactivated_by(snapshot.child("deactivated_by").getValue().toString());}
 
-
-                    firedb.getReference().child("attendance").child(forDbFormat.format(current)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    firedb.getReference().child("active_attendance").child(forDbFormat.format(current)).child(branch.getKey()).child(snapshot.child("key").getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                             if (snapshot.exists()) {
-
-                                int i1 = 0, i2 = 0;
-                                for (DataSnapshot branchData : snapshot.getChildren()) {
-                                    i1++;
-                                    for (DataSnapshot attendanceData: branchData.getChildren()) {
-                                        i2++;
-                                        Attendance attendance = attendanceData.getValue(Attendance.class);
-
-                                        Date timeTo = Calendar.getInstance().getTime();
-                                        Date timeCurrent = Calendar.getInstance().getTime();
-
-                                        try {
-                                            timeCurrent = inputTimeFormat.parse(inputTimeFormat.format(current));
-                                            timeTo = inputTimeFormat.parse(attendance.getShift().getTo());
-                                        } catch (ParseException e) {e.printStackTrace();}
-
-                                        long diffMin = (timeCurrent.getTime() - timeTo.getTime()) / 60000;
-
-                                        if (attendance.getTimed_out() == null && diffMin < 30 && attendance.getEmployee_key().equals(employee.getKey())) {
-                                            //ACTIVE
-                                            employee.setShiftIn(attendance.getShift());
-                                        }
-
-                                        if (i1 == snapshot.getChildrenCount() && i2 == branchData.getChildrenCount()) { redirect(); }
-
-                                    }
-                                }
-
-                            } else { redirect(); }
+                                Attendance attendance = snapshot.getValue(Attendance.class);
+                                employee.setShiftIn(attendance.getShift());
+                            }
+                            redirect();
                         }
 
                         @Override
@@ -99,8 +72,6 @@ public class LoadActivity extends AppCompatActivity {
 
                         }
                     });
-
-
 
                 }
             }

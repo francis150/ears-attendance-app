@@ -16,6 +16,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InactiveActivity extends AppCompatActivity {
