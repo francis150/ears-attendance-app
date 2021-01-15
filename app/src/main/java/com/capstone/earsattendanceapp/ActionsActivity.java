@@ -165,6 +165,7 @@ public class ActionsActivity extends AppCompatActivity {
 
                     Attendance attendance = new Attendance(
                             dbDateFormat.format(current),
+                            employee.getKey(),
                             employee.getFname(),
                             employee.getLname(),
                             designationString,
