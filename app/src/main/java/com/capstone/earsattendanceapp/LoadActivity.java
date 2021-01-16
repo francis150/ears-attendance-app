@@ -57,14 +57,24 @@ public class LoadActivity extends AppCompatActivity {
                     if (snapshot.child("image_url").exists()) {employee.setImage_url(snapshot.child("image_url").getValue().toString());}
                     if (snapshot.child("deactivated_by").exists()) {employee.setDeactivated_by(snapshot.child("deactivated_by").getValue().toString());}
 
-                    firedb.getReference().child("active_attendance").child(forDbFormat.format(current)).child(branch.getKey()).child(snapshot.child("key").getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    firedb.getReference().child("active_attendance").child(forDbFormat.format(current)).child(branch.getKey()).orderByChild("employee_key").equalTo(employee.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int i = 0;
                             if (snapshot.exists()) {
-                                Attendance attendance = snapshot.getValue(Attendance.class);
-                                employee.setShiftIn(attendance.getShift());
+                                for (DataSnapshot attendanceData : snapshot.getChildren()) {
+                                    i++;
+
+                                    Attendance attendance = attendanceData.getValue(Attendance.class);
+                                    employee.setShiftIn(attendance.getShift());
+
+                                    if (i == snapshot.getChildrenCount()) {
+                                        redirect();
+                                    }
+                                }
+                            } else {
+                                redirect();
                             }
-                            redirect();
                         }
 
                         @Override

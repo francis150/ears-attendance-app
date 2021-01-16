@@ -164,6 +164,7 @@ public class ActionsActivity extends AppCompatActivity {
                     Date current = Calendar.getInstance().getTime();
 
                     Attendance attendance = new Attendance(
+                            null,
                             dbDateFormat.format(current),
                             employee.getKey(),
                             employee.getFname(),
@@ -177,7 +178,10 @@ public class ActionsActivity extends AppCompatActivity {
                             selectedShift
                     );
 
-                    firedb.getReference().child("active_attendance").child(dbDateFormat.format(current)).child(branch.getKey()).child(employee.getKey()).setValue(attendance)
+                    DatabaseReference ref = firedb.getReference().child("active_attendance").child(dbDateFormat.format(current)).child(branch.getKey());
+                    attendance.setKey(ref.push().getKey());
+
+                    ref.child(attendance.getKey()).setValue(attendance)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -204,37 +208,40 @@ public class ActionsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Date current = Calendar.getInstance().getTime();
 
-                final DatabaseReference ref = firedb.getReference().child("active_attendance").child(dbDateFormat.format(current)).child(branch.getKey()).child(employee.getKey());
-
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                firedb.getReference().child("active_attendance").child(dbDateFormat.format(current)).child(branch.getKey()).orderByChild("employee_key").equalTo(employee.getKey())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            Attendance attendance = snapshot.getValue(Attendance.class);
-                            attendance.setTimed_out(inputTimeFormat.format(current));
 
-                            firedb.getReference().child("attendance_log").child(dbDateFormat.format(current)).child(branch.getKey()).child(employee.getKey()).setValue(attendance)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
+                            for (final DataSnapshot attendanceData : snapshot.getChildren()) {
 
-                                            ref.removeValue()
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
+                                Attendance attendance = attendanceData.getValue(Attendance.class);
+                                attendance.setTimed_out(inputTimeFormat.format(current));
 
-                                                            employee.setShiftIn(null);
-                                                            Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
-                                                            intent.putExtra("EMPLOYEE", employee);
-                                                            intent.putExtra("BRANCH", branch);
-                                                            intent.putExtra("ACTION", "Timed-out");
-                                                            startActivity(intent);
+                                firedb.getReference().child("attendance_log").child(dbDateFormat.format(current)).child(branch.getKey()).child(attendance.getKey()).setValue(attendance)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 
-                                                        }
-                                                    });
+                                        attendanceData.getRef().removeValue()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
 
-                                        }
-                                    });
+                                                        employee.setShiftIn(null);
+                                                        Intent intent = new Intent(ActionsActivity.this, SuccessActivity.class);
+                                                        intent.putExtra("EMPLOYEE", employee);
+                                                        intent.putExtra("BRANCH", branch);
+                                                        intent.putExtra("ACTION", "Timed-out");
+                                                        startActivity(intent);
+
+                                                    }
+                                                });
+
+                                    }
+                                });
+                            }
                         }
                     }
 

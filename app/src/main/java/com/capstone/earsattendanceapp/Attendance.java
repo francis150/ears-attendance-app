@@ -3,13 +3,14 @@ package com.capstone.earsattendanceapp;
 import java.io.Serializable;
 
 public class Attendance implements Serializable {
-    String date, employee_key, employee_fname, employee_lname, employee_designation, employee_img_url, branch_name, branch_description, timed_in, timed_out;
+    String key, date, employee_key, employee_fname, employee_lname, employee_designation, employee_img_url, branch_name, branch_description, timed_in, timed_out;
     Shift shift;
 
     public Attendance() {
     }
 
-    public Attendance(String date, String employee_key, String employee_fname, String employee_lname, String employee_designation, String employee_img_url, String branch_name, String branch_description, String timed_in, String timed_out, Shift shift) {
+    public Attendance(String key, String date, String employee_key, String employee_fname, String employee_lname, String employee_designation, String employee_img_url, String branch_name, String branch_description, String timed_in, String timed_out, Shift shift) {
+        this.key = key;
         this.date = date;
         this.employee_key = employee_key;
         this.employee_fname = employee_fname;
@@ -21,6 +22,14 @@ public class Attendance implements Serializable {
         this.timed_in = timed_in;
         this.timed_out = timed_out;
         this.shift = shift;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getDate() {
