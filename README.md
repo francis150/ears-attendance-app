@@ -12,9 +12,9 @@ This Mobile App is the client side of a EARS and is used by Branch Managers to r
 
 ## Technologies Used
 
-[<img height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-plain.svg" />](https://developer.android.com/studio)
-[<img height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" />](https://developer.android.com/studio/write/java8-support?gclid=CjwKCAjwhuCKBhADEiwA1HegObtGrim0M0KT0xZK-UgNDDGp23pXa3GI6eEepb0_i95HIbqGa6R9BhoCTXgQAvD_BwE&gclsrc=aw.ds)
-[<img height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" />](https://firebase.google.com/)
+![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Firebase](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
 
 <p>&nbsp;</p>
 
